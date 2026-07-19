@@ -11,6 +11,12 @@ This project runs the same 9 algorithms across 3 datasets with fundamentally dif
 
 ---
 
+## Decision Boundaries
+
+Represents the boundaries that the algorithms drew for classification. The representation may be inconsistent from reality because of possible information loss from PCA. The boundaries shown are for Dataset-A
+
+![Decision Boundaries](statistics/Decision-Boundaries(A).png)
+
 ## Results
 
 Note: The accuracies and times may wary accross runs, but the rankings and main lessons remain the same
