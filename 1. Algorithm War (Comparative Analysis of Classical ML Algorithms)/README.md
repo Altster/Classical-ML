@@ -7,7 +7,7 @@ Pitting 8 classical ML algorithms against each other across 3 deliberately diffe
 
 Every ML tutorial ends with "XGBoost wins." But XGBoost doesn't always win. The real skill isn't knowing which algorithm is best in general — it's knowing which algorithm is best *for your specific data*.
 
-This project runs the same 9 algorithms across 3 datasets with fundamentally different characteristics and watches the leaderboard reorder itself each time. The reordering is the lesson.
+This project runs the same 8 algorithm families (9 models — SVM appears with both RBF and linear kernels) across 3 datasets with fundamentally different characteristics and watches the leaderboard reorder itself each time. The reordering is the lesson.
 
 ---
 
@@ -19,24 +19,26 @@ Represents the boundaries that the algorithms drew for classification. The repre
 
 ## Results
 
-Note: The accuracies and times may wary accross runs, but the rankings and main lessons remain the same
+Accuracy is the mean over 5-fold stratified cross-validation (seed 37). Fit times vary across machines and runs; the main lessons hold.
 
 ### Dataset A — Breast Cancer Wisconsin
 *569 samples · 30 numeric features · binary classification*
 
-| Rank | Model | Accuracy | Fit Time |
+| Rank | Model | Accuracy (± std over folds) | Fit Time |
 |---|---|---|---|
-| 1 | Logistic Regression | 98.07% | 0.026s |
-| 2 | SVM (RBF) | 97.71% | 0.017s |
-| 3 | SVM (Linear) | 96.84% | 0.015s |
-| 4 | XGBoost | 96.48% | 0.122s |
-| 5 | K-Nearest Neighbors | 96.31% | 0.009s |
-| 5 | Gradient Boosting | 96.31% | 0.537s |
-| 7 | Random Forest | 95.60% | 0.252s |
-| 8 | Decision Tree | 93.15% | 0.031s |
-| 9 | Gaussian Naive Bayes | 92.80% | 0.012s |
+| 1 | Logistic Regression | 98.07% ± 0.36 | 0.026s |
+| 2 | SVM (RBF) | 97.71% ± 0.90 | 0.017s |
+| 3 | SVM (Linear) | 96.84% ± 0.90 | 0.015s |
+| 4 | XGBoost | 96.48% ± 1.12 | 0.122s |
+| 5 | K-Nearest Neighbors | 96.31% ± 0.85 | 0.009s |
+| 5 | Gradient Boosting | 96.31% ± 1.51 | 0.537s |
+| 7 | Random Forest | 95.60% ± 0.97 | 0.252s |
+| 8 | Decision Tree | 93.15% ± 1.02 | 0.031s |
+| 9 | Gaussian Naive Bayes | 92.80% ± 1.50 | 0.012s |
 
 **Key finding:** Linear models dominated a dataset described as "non-linear." At 30 dimensions, a linear hyperplane has enough degrees of freedom to separate complex-looking distributions. *"Non-linear in 2D" ≠ "non-linear in 30D."*
+
+**Caveat on the ranking:** with 569 rows, each fold's test set is ~114 samples, so one misclassification moves accuracy by almost a full point. Logistic Regression's lead over SVM (RBF) is smaller than one fold standard deviation, and ranks 2–6 overlap. The robust finding is that *linear models are at least as good as the complex ones here* — not that Logistic Regression is strictly best.
 
 ---
 
